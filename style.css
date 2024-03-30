@@ -1,0 +1,27 @@
+* {
+    margin: 0px;
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;    
+}
+
+.sketch-container {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+}
+
+.row-container {
+    display: flex;
+}
+
+.cell {
+    border-style: solid;
+    border-width: 1px;
+    min-width: 10px;
+    min-height: 10px;
+}
