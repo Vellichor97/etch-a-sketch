@@ -1,5 +1,4 @@
 
-// To change these values so they can be picked by user
 let size = 16;
 let currentColor = 'black';
 
@@ -16,13 +15,25 @@ const toggleButton = document.querySelector('.toggle');
 const slider = document.querySelector('.slider');
 const sliderText = document.querySelector('.slider-text'); 
 
+const colorPicker = document.querySelector('.color-picker');
+
 sketchContainer.style.minHeight = containerHeight + 'px';
 sketchContainer.style.minWidth = containerWidth + 'px';
 
 let mouseDown = 0;
 
-document.body.addEventListener('mousedown', () => mouseDown++);
-document.body.addEventListener('mouseup', () => mouseDown--);
+document.body.addEventListener('mousedown', (ev) => {
+    if (ev.target != slider)
+        ev.preventDefault();
+
+    if (!mouseDown)
+        mouseDown = 1;
+});
+
+document.body.addEventListener('mouseup', () => {
+    if (mouseDown)
+        mouseDown = 0;
+});
 
 function createSketch() {
     const rowDimension = containerHeight / size;
@@ -65,7 +76,7 @@ function enterCell(ev) {
 
 
 function colorCell(ev) {
-    ev.target.style.backgroundColor = 'black';
+    ev.target.style.backgroundColor = currentColor;
 }
 
 function fillSketch(color) {
@@ -88,7 +99,6 @@ function toggleSketch() {
 }
 
 function updateSlider() {
-    // console.log(slider.value);
     sliderText.textContent = 'Size: ' + slider.value + 'x' + slider.value;
     size = slider.value;
     cleanSketch();
@@ -97,8 +107,12 @@ function updateSlider() {
 
 
 clearButton.addEventListener('click', () => fillSketch('white'));
-fillButton.addEventListener('click', () => fillSketch('red'));
+fillButton.addEventListener('click', () => fillSketch(currentColor));
 toggleButton.addEventListener('click', toggleSketch);
 slider.addEventListener('input', updateSlider);
+colorPicker.addEventListener('change', () => {
+    mouseDown = 0;
+    currentColor = colorPicker.value;
+});
 
 createSketch();
