@@ -2,8 +2,8 @@
 let size = 16;
 let currentColor = 'black';
 
-const containerHeight = 500;
-const containerWidth = 500;
+const containerHeight = 550;
+const containerWidth = 550;
 
 
 const sketchContainer = document.querySelector('.sketch-container');
@@ -57,6 +57,8 @@ function createSketch() {
     
         sketchContainer.appendChild(row);
     }
+
+    fillSketch('white');
 }
 
 function cleanSketch() {
