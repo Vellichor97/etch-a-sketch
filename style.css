@@ -1,12 +1,43 @@
 * {
     margin: 0px;
+    box-sizing: border-box;
 }
 
 .page-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;    
+    height: 100vh;
+    gap: 200px;    
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+
+    /* border-style: solid; */
+
+    background-color:darkslategray;
+    gap: 30px;
+    padding: 20px;
+    min-width: 200px;
+    align-items: center;
+}
+
+label {
+    font-size: 20px;
+    color:antiquewhite;
+    margin-left: 10px;
+}
+
+button {
+    font-size: 25px;
+    border-radius: 10px;
+    width: 180px;
+}
+
+.slider-text {
+    color: antiquewhite;
 }
 
 .sketch-container {
@@ -22,6 +53,4 @@
 .cell {
     border-style: solid;
     border-width: 1px;
-    min-width: 10px;
-    min-height: 10px;
 }
