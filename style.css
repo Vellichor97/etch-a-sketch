@@ -18,7 +18,7 @@
     /* border-style: solid; */
 
     background-color:darkslategray;
-    gap: 30px;
+    gap: 40px;
     padding: 20px;
     min-width: 200px;
     align-items: center;
@@ -26,6 +26,7 @@
 
 label {
     font-size: 20px;
+    font-weight: 700;
     color:antiquewhite;
     margin-left: 10px;
 }
@@ -37,7 +38,10 @@ button {
 }
 
 .slider-text {
+    font-size: 18px;
+    font-weight: 700;
     color: antiquewhite;
+    margin-top: -30px;
 }
 
 .sketch-container {

@@ -6,13 +6,15 @@ let currentColor = 'black';
 const containerHeight = 500;
 const containerWidth = 500;
 
-const rowDimension = containerHeight / size;
-const cellDimension = containerWidth / size;
+
 const sketchContainer = document.querySelector('.sketch-container');
 
 const clearButton = document.querySelector('.clear');
 const fillButton = document.querySelector('.fill');
 const toggleButton = document.querySelector('.toggle');
+
+const slider = document.querySelector('.slider');
+const sliderText = document.querySelector('.slider-text'); 
 
 sketchContainer.style.minHeight = containerHeight + 'px';
 sketchContainer.style.minWidth = containerWidth + 'px';
@@ -22,6 +24,39 @@ let mouseDown = 0;
 document.body.addEventListener('mousedown', () => mouseDown++);
 document.body.addEventListener('mouseup', () => mouseDown--);
 
+function createSketch() {
+    const rowDimension = containerHeight / size;
+    const cellDimension = containerWidth / size;
+    
+    for (let i = 0; i < size; i++) {
+        const row = document.createElement('div');
+        row.classList.add('row-container');
+        row.style.minHeight = rowDimension + 'px';
+    
+        for (let j = 0; j < size; j++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.style.minWidth = cellDimension + 'px';
+            
+            cell.addEventListener('mouseenter', enterCell);
+            cell.addEventListener('mousedown', colorCell);
+    
+            row.appendChild(cell);
+        }
+    
+        sketchContainer.appendChild(row);
+    }
+}
+
+function cleanSketch() {
+    while(sketchContainer.firstChild) {
+        row = sketchContainer.firstChild;
+        while(row.firstChild) {
+            row.removeChild(row.firstChild);
+        }
+        sketchContainer.removeChild(row);
+    }
+}
 
 function enterCell(ev) {
     if (mouseDown)
@@ -52,26 +87,18 @@ function toggleSketch() {
     }
 }
 
-for (let i = 0; i < size; i++) {
-    const row = document.createElement('div');
-    row.classList.add('row-container');
-    row.style.minHeight = rowDimension + 'px';
-
-    for (let j = 0; j < size; j++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.style.minWidth = cellDimension + 'px';
-        
-        cell.addEventListener('mouseenter', enterCell);
-        cell.addEventListener('mousedown', colorCell);
-
-        row.appendChild(cell);
-    }
-
-    sketchContainer.appendChild(row);
+function updateSlider() {
+    // console.log(slider.value);
+    sliderText.textContent = 'Size: ' + slider.value + 'x' + slider.value;
+    size = slider.value;
+    cleanSketch();
+    createSketch();
 }
 
 
 clearButton.addEventListener('click', () => fillSketch('white'));
 fillButton.addEventListener('click', () => fillSketch('red'));
 toggleButton.addEventListener('click', toggleSketch);
+slider.addEventListener('input', updateSlider);
+
+createSketch();
